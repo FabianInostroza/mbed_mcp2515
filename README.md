@@ -1,2 +1,3 @@
 # mbed_mcp2515
-mbed mcp2515 library
+This is a fork of the library at https://os.mbed.com/teams/AutonomouStuff/code/mcp2515/.
+
