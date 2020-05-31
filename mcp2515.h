@@ -75,7 +75,7 @@ public:
     uint8_t readRegister(  uint8_t address);
     void    modifyRegister(  uint8_t address,   uint8_t mask,   uint8_t data);
     uint8_t setCANCTRL_Mode(uint8_t newmode);
-    uint8_t init(  int canSpeed);
+    uint8_t init(  int canSpeed, int f_osc);
     void    initCANBuffers(void);
     void    setRegisterS(  uint8_t address,   uint8_t values[],   uint8_t n);
     void    write_can_id(   uint8_t mcp_addr,   uint8_t ext,   uint32_t can_id );
@@ -99,7 +99,7 @@ public:
 
     void setDebugConsole(Serial c);
     
-    int configRate2(int bit_rate);
+    int configRate2(int bit_rate, int f_osc);
  
     // Private functions
 private :

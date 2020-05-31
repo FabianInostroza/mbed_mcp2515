@@ -17,7 +17,7 @@ class CAN3  {
     //InterruptIn _itr;
     mcp2515 _mcp;
 public:
-    CAN3(SPI& _spi, PinName ncs);//, PinName itr);
+    CAN3(SPI& _spi, PinName ncs, int f_osc=8000000);//, PinName itr);
     
     uint8_t read(CANMessage *msg); //    int read(CANMessage&    msg);
     void write(CANMessage* test);   //int write(CANMessage     msg);
@@ -34,7 +34,7 @@ public:
     // Private functions
 private :
     uint8_t checkReceive(void);
-
+    int _f_osc;
 
 };
 

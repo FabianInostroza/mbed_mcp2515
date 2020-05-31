@@ -129,13 +129,12 @@ uint8_t mcp2515::configRate(  uint8_t canSpeed) {
     }
 }
 
-int mcp2515::configRate2(int bit_rate)
+int mcp2515::configRate2(int bit_rate, int f_osc)
 {
     //struct spi_device *spi = to_spi_device(can->cdev.dev);
     //struct mcp251x *chip = dev_get_drvdata(&spi->dev);
     //struct mcp251x_platform_data *pdata = spi->dev.platform_data;
-        printf("\n\rcanspeed=%d",bit_rate);
-    int f_osc = 20000000;
+    printf("\n\rcanspeed=%d",bit_rate);
     int tqs; /* tbit/TQ */
     int brp;
     int ps1, ps2, propseg, sjw;
@@ -460,7 +459,7 @@ void mcp2515::initCANBuffers(void) {
     //setRegister(MCP_RXB1CTRL, 0);
 }
 
-uint8_t mcp2515::init(int canSpeed) {
+uint8_t mcp2515::init(int canSpeed, int f_osc) {
     uint8_t res;
 
     _deselect();
@@ -475,7 +474,7 @@ uint8_t mcp2515::init(int canSpeed) {
         printf("\r\nCAN init failed %d\n\r",&_ncs);
         return res;  /* function exit on error */
     }
-    res = configRate2(canSpeed);
+    res = configRate2(canSpeed, f_osc);
     //res = configRate(CAN_500KBPS_10MHz);
 
     if ( res == MCP2515_OK ) {

@@ -6,8 +6,8 @@
 #include "mcp2515_defs.h"
 
 
-CAN3::CAN3(SPI& _spi, PinName ncs)//, PinName itr)
-        : spi(_spi), _mcp(spi, ncs) {//, _itr(itr) {
+CAN3::CAN3(SPI& _spi, PinName ncs, int f_osc)//, PinName itr)
+        : spi(_spi), _mcp(spi, ncs), _f_osc(f_osc) {//, _itr(itr) {
     printf("\n\rcan = %d",this);
 
 }
@@ -64,7 +64,7 @@ int CAN3::frequency(int canSpeed) {
 
     uint8_t res;
 
-    res = _mcp.init(canSpeed); //CAN_500KBPS_8MHZ
+    res = _mcp.init(canSpeed, _f_osc); //CAN_500KBPS_8MHZ
     wait(.001);
 
     _mcp.setRegister(MCP_CANINTE, 0x3);//0x3); //MCP_RX_INT);
