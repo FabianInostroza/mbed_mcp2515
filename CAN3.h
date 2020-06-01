@@ -19,8 +19,8 @@ class CAN3  {
 public:
     CAN3(SPI& _spi, PinName ncs, int f_osc=8000000);//, PinName itr);
     
-    uint8_t read(CANMessage *msg); //    int read(CANMessage&    msg);
-    void write(CANMessage* test);   //int write(CANMessage     msg);
+    uint8_t read(CANMessage &msg, int handle=0); //    int read(CANMessage&    msg);
+    void write(CANMessage msg);   //int write(CANMessage     msg);
     int frequency( int canSpeed); //Set the frequency of the CAN interface hz    The bus frequency in hertz
 
 

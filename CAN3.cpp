@@ -12,19 +12,19 @@ CAN3::CAN3(SPI& _spi, PinName ncs, int f_osc)//, PinName itr)
 
 }
 
-uint8_t CAN3::read(CANMessage *msg) {
+uint8_t CAN3::read(CANMessage &msg, int handle) {
     uint8_t stat, res;
 
     stat = _mcp.readStatus();
 
     if ( stat & MCP_STAT_RX0IF ) {
         // Msg in Buffer 0
-        _mcp.read_canMsg( MCP_RXBUF_0, msg);
+        _mcp.read_canMsg( MCP_RXBUF_0, &msg);
         _mcp.modifyRegister(MCP_CANINTF, MCP_RX0IF, 0);
         res = CAN_OK;
     } else if ( stat & MCP_STAT_RX1IF ) {
         // Msg in Buffer 1
-        _mcp.read_canMsg( MCP_RXBUF_1, msg);
+        _mcp.read_canMsg( MCP_RXBUF_1, &msg);
         _mcp.modifyRegister(MCP_CANINTF, MCP_RX1IF, 0);
         res = CAN_OK;
     } else {
@@ -45,10 +45,10 @@ uint8_t CAN3::checkReceive(void) {
     }
 }
 
-void CAN3::write(CANMessage* test) {
+void CAN3::write(CANMessage msg) {
     uint8_t  txbuf_n;
     _mcp.getNextFreeTXBuf(&txbuf_n);
-    _mcp.write_canMsg(txbuf_n,test);
+    _mcp.write_canMsg(txbuf_n, &msg);
     _mcp.start_transmit( txbuf_n );
 }
 
