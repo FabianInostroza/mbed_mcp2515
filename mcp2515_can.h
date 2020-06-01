@@ -31,11 +31,11 @@
 #define CAN_20KBPS_8MHZ (52)
 #define CAN_10KBPS_8MHZ (51)
 
-#define CAN_OK         (0)
-#define CAN_FAILINIT   (1)
-#define CAN_FAILTX     (2)
-#define CAN_MSGAVAIL   (3)
-#define CAN_NOMSG      (4)
+#define CAN_NOMSG      (0)
+#define CAN_OK         (1)
+#define CAN_MSGAVAIL   (2)
+#define CAN_FAILTX     (3)
+#define CAN_FAILINIT   (4)
 #define CAN_CTRLERROR  (5)
 #define CAN_FAIL       (0xff)
 
