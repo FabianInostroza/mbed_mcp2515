@@ -2,7 +2,6 @@
 #ifndef _CAN3_H_
 #define _CAN3_H_
 
-#include "mbed.h"
 #include "mcp2515.h"
 #include "mcp2515_defs.h"
 #include "mcp2515_can.h"
