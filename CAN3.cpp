@@ -8,7 +8,7 @@
 
 CAN3::CAN3(SPI& _spi, PinName ncs, int f_osc)//, PinName itr)
         : spi(_spi), _mcp(spi, ncs), _f_osc(f_osc) {//, _itr(itr) {
-    printf("\n\rcan = %d",this);
+    //printf("\n\rcan = %d",this);
 }
 
 uint8_t CAN3::read(CANMessage &msg, int handle) {
@@ -80,7 +80,7 @@ int CAN3::frequency(int canSpeed) {
     if ( _mcp.setCANCTRL_Mode(MODE_NORMAL) == MCP2515_OK) { //MODE_NORMAL MODE_LOOPBACK
         //     printf("OK\n\r");
     } else {
-        printf("failed\n\r");
+        //printf("failed\n\r");
         return -1;
     }
 

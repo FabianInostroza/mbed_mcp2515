@@ -59,8 +59,8 @@
 
 mcp2515::mcp2515(SPI& _spi, PinName ncs)
         : spi(_spi), _ncs(ncs) {
-    printf("\n\rmcp2515 = %d",this);
-    printf("\n\rpin = %d",ncs);
+    //printf("\n\rmcp2515 = %d",this);
+    //printf("\n\rpin = %d",ncs);
 
 }
 
@@ -134,7 +134,7 @@ int mcp2515::configRate2(int bit_rate, int f_osc)
     //struct spi_device *spi = to_spi_device(can->cdev.dev);
     //struct mcp251x *chip = dev_get_drvdata(&spi->dev);
     //struct mcp251x_platform_data *pdata = spi->dev.platform_data;
-    printf("\n\rcanspeed=%d",bit_rate);
+    //printf("\n\rcanspeed=%d",bit_rate);
     int tqs; /* tbit/TQ */
     int brp;
     int ps1, ps2, propseg, sjw;
@@ -146,8 +146,10 @@ int mcp2515::configRate2(int bit_rate, int f_osc)
             && (f_osc / (2 * (brp + 1)) / tqs) == bit_rate)
             break;
     }
-    if (brp >= 8) printf("Spaztic BRP");
-   //     return -1;
+    if (brp >= 8) {
+        //printf("Spaztic BRP");
+        return -1;
+    }
 
     /* The CAN bus bit time (tbit) is determined by:
      *   tbit = (SyncSeg + PropSeg + PS1 + PS2) * TQ
@@ -169,8 +171,8 @@ int mcp2515::configRate2(int bit_rate, int f_osc)
         ps2++;
     sjw = 1;
 
-    printf("\n\rbit rate: BRP = %d, Tbit = %d TQ, PropSeg = %d, PS1 = %d, PS2 = %d, SJW = %d\n",
-        brp, tqs, propseg, ps1, ps2, sjw);
+    //printf("\n\rbit rate: BRP = %d, Tbit = %d TQ, PropSeg = %d, PS1 = %d, PS2 = %d, SJW = %d\n",
+    //    brp, tqs, propseg, ps1, ps2, sjw);
 
     /* Since we can only change the bit rate when the network device is
      * down the chip must be in sleep mode. Wake it up and put it into
@@ -471,7 +473,7 @@ uint8_t mcp2515::init(int canSpeed, int f_osc) {
     res = setCANCTRL_Mode(MODE_CONFIG);
 
     if ( res == MCP2515_FAIL ) {
-        printf("\r\nCAN init failed %d\n\r",&_ncs);
+        //printf("\r\nCAN init failed %d\n\r",&_ncs);
         return res;  /* function exit on error */
     }
     res = configRate2(canSpeed, f_osc);
@@ -555,6 +557,7 @@ void mcp2515::dumpExtendedStatus(void) {
     rec  = readRegister(MCP_REC);
     eflg = readRegister(MCP_EFLG);
 
+    #if 0
     printf("MCP2515 Extended Status:\n\r");
     printf("MCP Transmit Error Count %d \r\n", tec);
     printf("MCP Receiver Error Count %d \n\r", rec);
@@ -578,4 +581,5 @@ void mcp2515::dumpExtendedStatus(void) {
         printf("Receive Error Warning\r\n");
     if (eflg & MCP_EFLG_EWARN )
         printf("Receive Error Warning\n\r");
+    #endif
 }
