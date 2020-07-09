@@ -253,22 +253,15 @@ uint8_t mcp2515::RXStatus(void) {
 // read-modify-write - better: Bit Modify Instruction
 uint8_t mcp2515::setCANCTRL_Mode(uint8_t newmode) {
 
-    uint8_t i;
-
-    i = readRegister(MCP_CANCTRL);
-    i &= ~(MODE_MASK);
-    i |= newmode;
-    setRegister(MCP_CANCTRL, i);
+    modifyRegister(MCP_CANCTRL, MODE_MASK, newmode);
 
     // verify as advised in datasheet
-    i = readRegister(MCP_CANCTRL);
-    i &= MODE_MASK;
-    if ( i == newmode ) {
+    if ( (readRegister(MCP_CANSTAT) & MODE_MASK) == newmode ) {
         return MCP2515_OK;
     } else {
         return MCP2515_FAIL;
     }
-    
+
 }
 
 
