@@ -58,7 +58,7 @@
 #define CNF3_PHSEG2_MASK 0x07
 
 mcp2515::mcp2515(SPI& _spi, PinName ncs)
-        : spi(_spi), _ncs(ncs) {
+        : spi(_spi), _ncs(ncs, 1) {
     //printf("\n\rmcp2515 = %d",this);
     //printf("\n\rpin = %d",ncs);
 
