@@ -67,7 +67,7 @@ int CAN3::frequency(int canSpeed) {
     wait(.001);
 
     _mcp.setRegister(MCP_CANINTE, 0x3);//0x3); //MCP_RX_INT);
-    _mcp.setRegister(MCP_CANINTF, 0x3);// 0xff);
+    _mcp.setRegister(MCP_CANINTF, 0x00);
 
 
 //RX0,1 as rx0,1 digital interrupt outputs
